@@ -1,5 +1,7 @@
 import java.awt.PageAttributes.ColorType;
 
+import com.sun.scenario.effect.ImageData;
+
 /**
  * Classe PixelMapPlus
  * Image de type noir et blanc, tons de gris ou couleurs
@@ -121,13 +123,35 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 	 */
 	public void resize(int w, int h) throws IllegalArgumentException
 	{
-		/*if(w < 0 || h < 0)
+		if(w < 0 || h < 0)
         throw new IllegalArgumentException();
         
         AbstractPixel[][] newImage = new AbstractPixel[h][w];
-        //double ratioH = this.height/h;
+        
+        
+        double ratioH = this.height/h;
         double ratioW = this.width/w;
-        if(ratioW < 1){
+        double compteurH=ratioH;
+        double compteurW=ratioW;
+        if(ratioH > 1 && ratioW > 1) {
+        	for(int i=0;i<this.height;i++) {
+        		ratioH--;
+            	if(compteurH<=1) {
+            		for(int j = 0; j<this.width;j++) {
+        				compteurW--;
+            			if(compteurW<=1) {
+            				newImage[i][j]=this.imageData[i][j];
+            				compteurW+=ratioW;
+            			}
+            		}
+            		compteurH+=ratioH;
+            	}
+            }
+        }
+        
+        
+        imageData=newImage;
+        /*if(ratioW < 1){
             ratioW = 1/ratioW;
             int j=0;
             double shit = 0;
@@ -141,11 +165,11 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
             }
         }
         else if( ratioW >1){
-            double shit =0;
+            double compteur =0;
             int j=0;
             for(int i = 0; i<this.width;){
-                shit +=ratioW;
-                while(shit>=1){
+                compteur +=ratioW;
+                while(compteur>=1){
                     ratioW--;
                     i++;
                 }
@@ -168,7 +192,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
 		// compl�ter
 			for (int i= 0; i < pm.height && i < height; i++) {
 				for(int j= 0; j < pm.width && j < width; j++) {
-					if(i+row0 <= this.height && j+col0 <= this.width)
+					if(i+row0 < this.height && j+col0 < this.width)
 					imageData[i + row0][j+ col0] = pm.imageData[i][j];			
 			}
 		}

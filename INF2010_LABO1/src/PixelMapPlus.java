@@ -135,12 +135,14 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
         double compteurW=ratioW;
         if(ratioH > 1 && ratioW > 1) {
         	for(int i=0;i<this.height;i++) {
-        		ratioH--;
+        		compteurH--;
             	if(compteurH<=1) {
             		for(int j = 0; j<this.width;j++) {
         				compteurW--;
             			if(compteurW<=1) {
-            				newImage[i][j]=this.imageData[i][j];
+            				if(i<h && j<w) {
+            					newImage[i][j]=this.imageData[i][j];            					            					
+            				}
             				compteurW+=ratioW;
             			}
             		}
@@ -149,8 +151,15 @@ public class PixelMapPlus extends PixelMap implements ImageOperations
             }
         }
         
-        
-        imageData=newImage;
+        this.width = w;
+        this.height = h;
+        imageData= new AbstractPixel[h][w];
+        for(int i=0;i<h;i++) {
+        		for(int j = 0; j<h;j++) {
+        			imageData[i][j] = newImage[i][j];
+        		}
+        }
+        		
         /*if(ratioW < 1){
             ratioW = 1/ratioW;
             int j=0;

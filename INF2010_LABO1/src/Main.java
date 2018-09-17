@@ -40,7 +40,7 @@ public class Main
 		 * Exercice 2
 		 */
 		
-		PixelMapPlus pmp = new PixelMapPlus("./logo.ppm");
+		PixelMapPlus pmp = new PixelMapPlus("./ed.ppm");
 		
 		PixelMapPlus hpmp = new PixelMapPlus( pmp );
 		

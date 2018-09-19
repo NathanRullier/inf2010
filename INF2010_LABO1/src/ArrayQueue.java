@@ -9,8 +9,7 @@ public class ArrayQueue<AnyType> implements Queue<AnyType>
 	@SuppressWarnings("unchecked")
 	public ArrayQueue() 
 	{
-		//A completer
-		table = (AnyType[]) new Object[size];
+		table = (AnyType[]) new Object[1];
 	}
 	
 	//Indique si la file est vide
@@ -30,25 +29,22 @@ public class ArrayQueue<AnyType> implements Queue<AnyType>
 	//complexit� asymptotique: O(1)
 	public AnyType peek()
 	{
-		//A completer
-		if(empty())
+		if(empty()){
 			return null;
-		else
+		} else {
 			return table[startindex];
+		}
 	}
 	
 	//Retire l'element en tete de file
 	//complexit� asymptotique: O(1)
 	public void pop() throws EmptyQueueException
 	{
-		//A completer
-		if(empty())
-			throw new EmptyQueueException("table");
-		AnyType element = peek();
-		element = null;
+		if(empty()){
+			throw new EmptyQueueException("Il n'y a rien a retirer");
+		}
 		startindex++;
-		
-		
+		size--;
 	}
 	
 	//Ajoute un element a la fin de la file
@@ -56,10 +52,10 @@ public class ArrayQueue<AnyType> implements Queue<AnyType>
 	//complexit� asymptotique: O(1) ( O(N) lorsqu'un redimensionnement est necessaire )
 	public void push(AnyType item)
 	{
-		//A completer
-		if (size() == table.length)
+		if(size+startindex == table.length){
 			resize(2);
-		table[size()-1] = item;
+		}
+		table[startindex+size] = item;
 		size++;
 	}
    
@@ -69,12 +65,12 @@ public class ArrayQueue<AnyType> implements Queue<AnyType>
 	@SuppressWarnings("unchecked")
 	private void resize(int resizeFactor)
 	{
-		//A completer
-		AnyType[] filePlusGrande = (AnyType[])(new Object[table.length*resizeFactor]);
-		
-		for(int i =0; i < table.length; i++)
-			filePlusGrande[i] = table[i];
-		table = filePlusGrande;
+		AnyType[] ancien = (AnyType[]) new Object[resizeFactor*table.length];
+		for(int i = 0; i < size; i++){
+			ancien[i] = table[startindex+i];
+		}
+		table = ancien;
+		startindex = 0;
 	}   
 }
 

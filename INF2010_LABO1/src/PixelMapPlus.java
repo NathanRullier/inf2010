@@ -120,20 +120,25 @@ public class PixelMapPlus extends PixelMap implements ImageOperations {
 			throw new IllegalArgumentException();
 
 		AbstractPixel[][] newImage = new AbstractPixel[h][w];
-
+		//finds the height and width ratio
 		double ratioH = this.height / h;
 		double ratioW = this.width / w;
+		//helps to count where the ratio is
 		double compteurH = ratioH;
 		double compteurW = ratioW;
+		//position in the new image
 		int newImagePosH = 0;
 		int newImagePosW = 0;
+		//verify that the ratio means a reduction in size
 		if (ratioH > 1 && ratioW > 1) {
+			//goes through the height of the image
 			for (int i = 0; i < this.height; i++) {
 				compteurH--;
 				if (newImagePosH == h) {
 					break;
 				}
 				if (compteurH <= 1) {
+					//goes through the width of the image
 					for (int j = 0; j < this.width; j++) {
 						compteurW--;
 						if (newImagePosW == w) {
@@ -153,7 +158,7 @@ public class PixelMapPlus extends PixelMap implements ImageOperations {
 				newImagePosW = 0;
 			}
 		}
-
+		//initialize the new image
 		this.width = w;
 		this.height = h;
 		imageData = newImage;

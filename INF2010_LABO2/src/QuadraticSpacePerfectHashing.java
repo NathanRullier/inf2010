@@ -37,10 +37,10 @@ public class QuadraticSpacePerfectHashing<AnyType> {
 		int keyDecalage;
 		while (true) {
 			keyDecalage = getKey(x) + decalageQuad * decalageQuad;
-			if (items[keyDecalage].toString() == x.toString()) {
-				return true;
-			} else if (items[keyDecalage] == null) {
+			if (items[keyDecalage] == null) {
 				return false;
+			} else if (items[keyDecalage].equals(x)) {
+				return true;
 			} else {
 				decalageQuad++;
 			}

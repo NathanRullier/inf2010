@@ -36,11 +36,13 @@ public class QuadraticSpacePerfectHashing<AnyType> {
 		int decalageQuad = 0;
 		int keyDecalage;
 		while (true) {
-			keyDecalage = getKey(x) + decalageQuad * decalageQuad;
+			keyDecalage = (getKey(x) + decalageQuad * decalageQuad)%Size();
 			if (items[keyDecalage] == null) {
 				return false;
 			} else if (items[keyDecalage].equals(x)) {
 				return true;
+			} else if (Size()==1){
+				return false;
 			} else {
 				decalageQuad++;
 			}
@@ -61,22 +63,29 @@ public class QuadraticSpacePerfectHashing<AnyType> {
 	private void AllocateMemory(ArrayList<AnyType> array) {
 		Random generator = new Random(System.nanoTime());
 
+		
+		if(array.size() == 0) {
+			items = (AnyType[]) new Object[0];
+			return;
+		}
+		if (array.size() == 1) {
+			a = generator.nextInt(p-1)+1;
+			b = generator.nextInt(p-1)+1;
+			items = (AnyType[]) new Object[1];
+			items[0] = array.get(0);
+			// A completer
+			return;
+		}
 		if (a == 0 && b == 0) {
 			items = (AnyType[]) new Object[array.size() * array.size()];
 			a = generator.nextInt(p-1)+1;
 			b = generator.nextInt(p-1)+1;
 		}
-		if (array.size() == 1) {
-			a = b = 0;
-			// A completer
-			return;
-		}
-
 		// A completer
 		for (int i = 0; i < array.size(); i++) {
 			int key = getKey(array.get(i));
 			int quadDecalage = 0;
-			int keyDecalage = (key + quadDecalage * quadDecalage) % items.length;
+			int keyDecalage = (key + quadDecalage * quadDecalage) % Size();
 			boolean placed = false;
 			while (!placed) {
 				if (items[keyDecalage] == null) {
@@ -84,6 +93,7 @@ public class QuadraticSpacePerfectHashing<AnyType> {
 					placed = true;
 				} else {
 					quadDecalage++;
+					keyDecalage = (key + quadDecalage * quadDecalage) %Size();
 				}
 			}
 
@@ -100,7 +110,7 @@ public class QuadraticSpacePerfectHashing<AnyType> {
 	}
 
 	public void makeEmpty () {
-		for(int i = 0; i < items.length; i++ )
+		for(int i = 0; i < Size(); i++ )
 			items[ i ] = null;
    	}
 }

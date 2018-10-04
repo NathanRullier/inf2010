@@ -48,17 +48,15 @@ public class LinearSpacePerfectHashing<AnyType>
 	
 		data = new QuadraticSpacePerfectHashing[array.size()];
         ArrayList<AnyType>[] tableau = new ArrayList[array.size()];
-        ArrayList<AnyType> list;
         for (int i = 0; i < array.size(); i++) {
-            list = new ArrayList();
-            tableau[i] = list;
+            tableau[i] = new ArrayList();
         }
         for (int i = 0; i < array.size(); i++) {
             tableau[getKey(array.get(i))].add(array.get(i));
         }
         for (int i = 0; i < array.size(); i++) {            
             if (!tableau[i].isEmpty()) {
-                data[i] = new QuadraticSpacePerfectHashing<AnyType>(tab[i]);
+                data[i] = new QuadraticSpacePerfectHashing<AnyType>(tableau[i]);
             }
             
         }

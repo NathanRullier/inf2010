@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class HashFunctions 
@@ -108,7 +109,14 @@ public class HashFunctions
     */
    public static ArrayList<Integer> randomIntegers(int length)
    {
-      return null;
+	   ArrayList<Integer> list = new ArrayList<Integer>();
+	   for (int i = 0; i < p; i++) {
+		   list.add(new Integer (i));
+	   }
+	   Collections.shuffle(list);
+	   ArrayList<Integer> resultats = new ArrayList<Integer>(list.subList(0, length));
+	   
+      return resultats;
    }
 }
 

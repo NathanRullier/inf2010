@@ -54,9 +54,7 @@ public class QuadraticSpacePerfectHashing<AnyType> {
 
 	public int getKey(AnyType x) {
 		// A completer
-		int pls = x.hashCode();
-		int key = ((a * x.hashCode() + b) % p) % items.length;
-		return key;
+		return ((a*x.hashCode()+b)%p)%(Size());
 	}
 
 	@SuppressWarnings("unchecked")

@@ -56,7 +56,7 @@ public class HashFunctions
        * Exercice 3
        */
       // On cree un LinearSpacePerfectHashing et insere les memes donnees
-      /*
+     
       System.out.println( "LinearSpacePerfectHashing:");
       System.out.println();
       
@@ -92,7 +92,7 @@ public class HashFunctions
       /**
        * Confirmation des resultats de Exercice 3
        */
-      /*
+      
       // Effectues quelques tests aleatoires pour verifier les proprietes de taille
       pfhash = new LinearSpacePerfectHashing<Integer>();
             
@@ -100,7 +100,7 @@ public class HashFunctions
       {
          pfhash.SetArray( randomIntegers( nbElements ) );
          System.out.println( nbElements + "\t" + pfhash.Size() );
-      }*/
+      }
    }
    
    /**

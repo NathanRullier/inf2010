@@ -17,8 +17,11 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 	@SuppressWarnings("unchecked")
 	public BinaryHeap(AnyType[] items, boolean min) {
 		this.min = min;
-		this.array = items;
-		this.currentSize = array.length;
+		this.array = (AnyType[]) new Comparable[items.length+1];
+		for(int i=0;i<items.length;i++) {
+			this.array[i+1]=items[i];
+		}
+		this.currentSize = items.length;
 		if (min) {
 			buildMinHeap();
 		} else {
@@ -27,6 +30,7 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 	}
 
 	public boolean offer(AnyType x) {
+		modifications++;
 		if (x == null)
 			throw new NullPointerException("Cannot insert null in a BinaryHeap");
 
@@ -54,6 +58,7 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 	}
 
 	public AnyType poll() {
+		modifications++;
 		AnyType head= array[1];
 		array[1] = array[currentSize];
 		currentSize--;
@@ -75,9 +80,8 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 	}
 
 	private void buildMaxHeap() {
-		for (int i = currentSize / 2; i > 0; i--)
+		for (int i = currentSize / 2; i > 0; i--) 
 			percolateDownMaxHeap(i, currentSize);
-
 	}
 
 	public boolean isEmpty() {
@@ -138,8 +142,8 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 		int child = hole;
 		AnyType tmp = array[hole];
 		for (; hole * 2 <= size; hole = child) {
-			child = leftChild(child,child != size && array[child + 1].compareTo(array[child]) > 0);
-			if (array[child].compareTo(tmp) > 0)
+			child = leftChild(child,hole*2 == size || array[hole*2 + 1].compareTo(array[hole*2]) > 0);
+			if (array[child].compareTo(tmp) < 0)
 				array[hole] = array[child];
 			else
 				break;
@@ -166,8 +170,8 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 		int child = hole;
 		AnyType tmp = array[hole];
 		for (; hole * 2 <= size; hole = child) {
-			child = leftChild(child,child != size && array[child + 1].compareTo(array[child]) < 0);
-			if (array[child].compareTo(tmp) < 0)
+			child = leftChild(child,hole*2 == size || array[2*hole + 1].compareTo(array[2*hole]) < 0);
+			if (array[child].compareTo(tmp) > 0)
 				array[hole] = array[child];
 			else
 				break;

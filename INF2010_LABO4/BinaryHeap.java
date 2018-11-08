@@ -220,8 +220,8 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> extends Abs
 
 	public String nonRecursivePrintFancyTree() {
 		String outputString = "";
-
-		// COMPLETEZ
+		
+		
 
 		return outputString;
 	}

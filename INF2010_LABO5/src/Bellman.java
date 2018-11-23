@@ -34,16 +34,11 @@ public class Bellman {
 			}else {
 				vectorDblToAdd.add(99999.0);
 			}
-			if(vectorDblToAdd.get(i)== 99999.0) {
 				vectorIntToAdd.add(null);
-			}
-			else {
-				vectorIntToAdd.add(i);
-			}
 			
 		}
-		piTable.add(vectorDblToAdd);
-		rTable.add(vectorIntToAdd);
+		piTable.add(new Vector<Double>(vectorDblToAdd));
+		rTable.add(new Vector<Integer>(vectorIntToAdd));
 		while(!shortestPathFound) {
 			for(int i =0 ; i < graph.getNodes().size(); i++) {
 				vectorDblToAdd.set(i,99999.0);
@@ -61,8 +56,8 @@ public class Bellman {
 						
 						if(newValueToTest < piTable.get(iteration-1).get(edgeTotest.get(j).getDestination().getId())) {
 							
-							piTable.get(iteration).set(idNode ,newValueToTest);
-							rTable.get(iteration).set(idNode, i);
+							vectorDblToAdd.set(idNode ,newValueToTest);
+							vectorIntToAdd.set(idNode, i);
 						}
 					}
 				}
@@ -71,8 +66,8 @@ public class Bellman {
 			if(piTable.get(iteration-1) == vectorDblToAdd && rTable.get(iteration-1) == vectorIntToAdd) {
 				shortestPathFound = true;
 			}else {
-				piTable.add(vectorDblToAdd);
-				rTable.add(vectorIntToAdd);
+				piTable.add(new Vector<Double>(vectorDblToAdd));
+				rTable.add(new Vector<Integer>(vectorIntToAdd));
 				iteration++;
 			}
 		}

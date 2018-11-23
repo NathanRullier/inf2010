@@ -42,11 +42,12 @@ public class Bellman {
 			}
 			
 		}
-		
+		piTable.add(vectorDblToAdd);
+		rTable.add(vectorIntToAdd);
 		while(!shortestPathFound) {
 			for(int i =0 ; i < graph.getNodes().size(); i++) {
-				piTable.get(iteration).add(99999.0);
-				rTable.get(iteration).add(null);
+				vectorDblToAdd.set(i,99999.0);
+				vectorIntToAdd.set(i,null);
 			}
 			for(int i =0 ; i < piTable.get(iteration-1).size(); i++) {
 				
@@ -66,9 +67,13 @@ public class Bellman {
 					}
 				}
 			}
-			iteration++;
-			if(piTable.get(iteration-1) == piTable.get(iteration) && rTable.get(iteration) == rTable.get(iteration-1)) {
+			
+			if(piTable.get(iteration-1) == vectorDblToAdd && rTable.get(iteration-1) == vectorIntToAdd) {
 				shortestPathFound = true;
+			}else {
+				piTable.add(vectorDblToAdd);
+				rTable.add(vectorIntToAdd);
+				iteration++;
 			}
 		}
 
